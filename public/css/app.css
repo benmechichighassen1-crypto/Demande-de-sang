@@ -1,0 +1,172 @@
+/* Styles de l'appli Demandes de sang (gardés en cache par le navigateur, version dans l'adresse). */
+:root { --rouge:#7f1d1d; --rouge2:#991b1b; --fond:#f5f5f4; --bord:#e7e5e4; --texte:#1c1917; --doux:#78716c;
+        --vert:#15803d; --orange:#c2410c; --jaune:#fef3c7; }
+* { box-sizing:border-box; }
+body { margin:0; font-family:system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; background:var(--fond); color:var(--texte); font-size:15px; }
+/* Arabe : police lisible sans CDN, mise en page de droite à gauche (bordures « de début » de ligne à droite). */
+[dir=rtl] body { font-family:"Segoe UI", Tahoma, "Noto Naskh Arabic", "Noto Sans Arabic", Arial, sans-serif; font-size:16px; }
+[dir=rtl] th, [dir=rtl] td { text-align:right; }
+[dir=rtl] .carte[style*="border-left"], [dir=rtl] section[data-bloc] .carte { border-left-width:1px !important; border-right:4px solid var(--c, #f59e0b) !important; }
+[dir=rtl] .barre .droite { margin-left:0; margin-right:auto; }
+[dir=rtl] .langue-bouton { font-family:Tahoma, "Segoe UI", sans-serif; }
+.chiffres, .badge, input, .n { unicode-bidi:plaintext; }
+.langue-bouton { color:#fff; text-decoration:none; border:1px solid #fca5a5; border-radius:6px; padding:5px 10px; font-size:13px; }
+header { background:var(--rouge); color:#fff; position:sticky; top:0; z-index:50; }
+.barre { display:flex; align-items:center; gap:12px; padding:10px 16px; }
+.marque { font-weight:700; font-size:16px; color:#fff; text-decoration:none; }
+.barre .droite { margin-left:auto; display:flex; align-items:center; gap:10px; font-size:13px; }
+.barre button { background:transparent; border:1px solid #fca5a5; color:#fff; border-radius:6px; padding:5px 10px; font:inherit; cursor:pointer; }
+nav { display:flex; gap:4px; overflow-x:auto; padding:0 10px 8px; scrollbar-width:none; }
+nav a { color:#fecaca; text-decoration:none; font-weight:500; padding:6px 10px; border-radius:999px; white-space:nowrap; }
+nav a:hover { color:#fff; background:rgba(255,255,255,.15); }
+/* Page courante : bien marquée (fond blanc, texte bordeaux). */
+nav a.actif, nav a.actif:hover { color:var(--rouge); background:#fff; font-weight:700; }
+/* Onglets d'étapes : une couleur par étape (--c), pastille active pleine et soulignée, barre collée sous l'en-tête. */
+.onglets { position:sticky; top:var(--haut-entete, 92px); z-index:40; display:flex; gap:8px; overflow-x:auto; padding:10px 2px 8px;
+           margin:0 0 4px; background:var(--fond); scrollbar-width:thin; }
+.onglet { --c:#57534e; display:inline-flex; align-items:center; gap:6px; flex:none; padding:8px 14px; border-radius:999px; font:inherit; font-weight:600;
+          white-space:nowrap; cursor:pointer; color:var(--c); background:#fff; border:2px solid color-mix(in srgb, var(--c) 35%, #fff); }
+.onglet .n { background:color-mix(in srgb, var(--c) 14%, #fff); color:var(--c); border-radius:999px; padding:0 8px; font-size:12px; font-weight:700; }
+.onglet:hover { border-color:var(--c); }
+.onglet.actif { background:var(--c); color:#fff; border-color:var(--c); box-shadow:0 4px 0 -1px color-mix(in srgb, var(--c) 45%, #000); text-decoration:underline; text-underline-offset:4px; }
+.onglet.actif .n { background:#fff; color:var(--c); }
+.onglet.vide:not(.actif) { opacity:.45; }
+.fil { font-size:14px; color:var(--doux); margin:2px 0 12px; } .fil span { color:var(--fil, var(--texte)); font-weight:700; }
+section[data-bloc] > h2 { color:var(--c); }
+section[data-bloc] .carte, section[data-bloc] > .carte { border-left:4px solid var(--c); }
+section[data-bloc][hidden] { display:none; }
+.role-puce { --r:#57534e; display:inline-flex; align-items:center; gap:4px; padding:2px 10px; border-radius:999px; font-size:12px; font-weight:700;
+             color:var(--r); background:color-mix(in srgb, var(--r) 12%, #fff); border:1px solid color-mix(in srgb, var(--r) 40%, #fff); white-space:nowrap; }
+.tache { display:flex; flex-direction:column; align-items:flex-start; gap:4px; }
+[data-roles][hidden] { display:none !important; }
+.badge-etape { display:inline-block; padding:2px 9px; border-radius:999px; font-size:12px; font-weight:600; color:#fff; background:var(--c); }
+/* Filtres actifs des listes : pastilles « Service : Réa × », champs filtrés surlignés, onglets de statut segmentés. */
+.actifs { display:flex; flex-wrap:wrap; gap:6px; align-items:center; margin:-4px 0 12px; font-size:13px; }
+.puce { display:inline-flex; align-items:center; gap:6px; padding:4px 6px 4px 12px; border-radius:999px; background:#fee2e2; color:var(--rouge); font-weight:600; text-decoration:none; border:1px solid #fca5a5; }
+.puce b { display:inline-grid; place-items:center; width:20px; height:20px; border-radius:50%; background:var(--rouge); color:#fff; font-size:12px; }
+.puce.effacer { background:#fff; color:var(--texte); border-color:#d6d3d1; padding-right:12px; }
+.filtres .filtre-actif { border:2px solid var(--rouge2); background:#fef2f2; font-weight:600; }
+.segments { display:inline-flex; border:1px solid #d6d3d1; border-radius:10px; overflow:hidden; background:#fff; }
+.segments a { padding:9px 14px; text-decoration:none; color:var(--texte); font-weight:600; border-right:1px solid #e7e5e4; white-space:nowrap; }
+.segments a:last-child { border-right:0; }
+.segments a.actif { background:var(--rouge); color:#fff; }
+nav a.plus { display:none; } @media (max-width: 640px) { nav a.plus { display:inline-block; } }
+nav .pastille { background:#fbbf24; color:#1c1917; border-radius:999px; padding:0 6px; font-size:12px; font-weight:700; margin-left:3px; }
+main { padding:16px 24px; max-width:1800px; margin:0 auto; }
+/* Grand écran (PC) : toute la largeur et texte plus grand. */
+@media (min-width: 1280px) { body { font-size:16.5px; } .petit, .btn.petit { font-size:14.5px; } th, .badge { font-size:13px; } h1 { font-size:24px; } h2 { font-size:19px; } .marque { font-size:18px; } }
+.carte { background:#fff; border:1px solid var(--bord); border-radius:12px; padding:16px; margin-bottom:14px; }
+h1 { font-size:21px; margin:0 0 12px; } h2 { font-size:17px; margin:0 0 10px; } h3 { font-size:15px; margin:0 0 8px; }
+table { width:100%; border-collapse:collapse; } th, td { text-align:left; padding:8px; border-bottom:1px solid var(--bord); vertical-align:top; }
+th { color:var(--doux); font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:.03em; }
+input, select, textarea { font:inherit; padding:10px 12px; border:1px solid #d6d3d1; border-radius:10px; background:#fff; max-width:100%; }
+input:focus, select:focus, textarea:focus { outline:2px solid #fca5a5; border-color:var(--rouge2); }
+input[type=checkbox], input[type=radio] { width:22px; height:22px; vertical-align:middle; accent-color:var(--rouge); }
+label { font-weight:500; }
+.champ { margin-bottom:12px; } .champ > label { display:block; margin-bottom:5px; } .champ input:not([type=checkbox]):not([type=radio]), .champ select, .champ textarea { width:100%; }
+.choix { display:flex; gap:8px; flex-wrap:wrap; } .choix label { display:flex; align-items:center; gap:8px; border:1px solid var(--bord); border-radius:10px; padding:10px 14px; background:#fff; cursor:pointer; }
+.btn { font:inherit; font-weight:600; display:inline-flex; align-items:center; justify-content:center; gap:8px; padding:11px 18px; border-radius:10px; min-height:44px;
+       border:1px solid var(--rouge); background:var(--rouge); color:#fff; cursor:pointer; text-decoration:none; line-height:1.1; }
+.btn:hover { background:var(--rouge2); }
+.btn.sec { background:#fff; color:var(--rouge); border-color:#fecaca; } .btn.sec:hover { background:#fef2f2; }
+.btn.vert { background:var(--vert); border-color:var(--vert); } .btn.vert:hover { background:#166534; }
+.btn.gris { background:#fff; color:var(--texte); border-color:#d6d3d1; }
+.btn.large { width:100%; font-size:17px; padding:14px; }
+.btn.petit { min-height:34px; padding:6px 12px; font-size:13px; }
+.filtres { display:flex; gap:8px; flex-wrap:wrap; align-items:flex-end; } .filtres input, .filtres select { padding:8px 10px; }
+.badge { display:inline-block; padding:2px 9px; border-radius:999px; font-size:12px; font-weight:600; color:#fff; background:#78716c; white-space:nowrap; }
+.u-vitale { background:#b91c1c; } .u-urgente { background:#ea580c; } .u-programmee { background:#2563eb; }
+.s-en_cours { background:#0369a1; } .s-cloturee { background:#15803d; } .s-annulee { background:#57534e; }
+.doux { color:var(--doux); } .petit { font-size:13px; }
+/* Lien vers un détail (fiche, poche dans le stock) : petite loupe devant. */
+a.loupe::before { content:"🔍"; font-size:.8em; margin-inline-end:3px; text-decoration:none; display:inline-block; }
+@media print { a.loupe::before { content:none; } }
+/* En-têtes collants : sous l'en-tête de l'appli, le bloc « collant » de l'écran (pastilles + filtres) puis
+   l'en-tête de chaque tableau. --haut-collant = hauteur du bloc collant (calculée par le script en bas de page). */
+.collant { position:sticky; top:var(--haut-entete, 92px); z-index:30; background:var(--fond); padding-top:6px; margin-top:-6px; }
+.collant > .carte.filtres { margin-bottom:8px; }
+/* Chaque tableau défile dans son propre cadre (hauteur = écran moins l'en-tête et le bloc collant) ; son en-tête reste en haut du cadre.
+   Un petit tableau garde sa hauteur naturelle (pas de barre de défilement). */
+/* Petits tableaux : défilement horizontal seulement si besoin. Grands tableaux : cadre de défilement à eux seuls. */
+.table-defile { overflow-x:auto; } .table-defile.a-cadre { overflow:visible; }
+.cadre-tableau { overflow:auto; max-height:max(200px, calc(100vh - var(--haut-entete, 92px) - var(--haut-collant, 0px) - 24px - var(--apres, 36px)));
+    position:sticky; top:calc(var(--haut-entete, 92px) + var(--haut-collant, 0px)); overscroll-behavior:contain; }
+.cadre-tableau thead th { position:sticky; top:0; z-index:5; background:#fff; box-shadow:inset 0 -1px 0 var(--bord), 0 2px 3px -2px rgba(0,0,0,.15); }
+/* Bloc réduit en défilant : pastilles en une ligne compacte (nombre + libellé), sous-titres masqués. */
+.collant.reduit .cartes { display:flex; flex-wrap:nowrap; overflow-x:auto; gap:6px; margin-bottom:6px; scrollbar-width:thin; }
+.collant.reduit .cartes > .carte { flex:none; display:flex; align-items:baseline; gap:6px; padding:5px 10px; margin:0; box-shadow:none !important; }
+.collant.reduit .cartes > .carte > div:first-child { font-size:16px !important; }
+.collant.reduit .cartes > .carte > div:nth-child(3), .collant.reduit .masque-reduit { display:none; }
+/* Effacer les filtres : bouton bien visible à côté de « Filtrer » ; petite croix dans le champ de recherche. */
+.btn.effacer-filtres { border-color:var(--rouge); color:var(--rouge); background:#fff; } .btn.effacer-filtres:hover { background:#fef2f2; }
+.recherche-x { position:relative; display:inline-flex; flex:1 1 320px; min-width:0; } .recherche-x input { width:100%; padding-inline-end:34px; }
+.recherche-x button { position:absolute; inset-inline-end:6px; top:50%; transform:translateY(-50%); border:0; background:#e7e5e4; color:var(--texte);
+    width:24px; height:24px; border-radius:50%; cursor:pointer; font-size:14px; line-height:1; padding:0; }
+.recherche-x button:hover { background:var(--rouge); color:#fff; }
+input[type=search]::-webkit-search-cancel-button { display:none; }
+/* PC : pas de défilement horizontal propre aux tableaux (il empêcherait l'en-tête collant). */
+/* Téléphone : le tableau défile dans son cadre (en-tête collant en haut du cadre) ; bloc collant = pastilles + recherche. */
+@media (max-width: 899px) { .collant.reduit form.filtres > :not(.recherche-x):not([type=hidden]):not(.btn) { display:none; } }
+@media print { .collant, thead th, .cadre-tableau { position:static !important; } .cadre-tableau { overflow:visible !important; max-height:none !important; } .collant.reduit .cartes { display:grid; } .effacer-filtres, .recherche-x button { display:none !important; } }
+.alerte { background:var(--jaune); border:1px solid #fcd34d; padding:10px 12px; border-radius:10px; margin-bottom:12px; }
+.alerte.rouge { background:#fee2e2; border-color:#fca5a5; }
+.erreur { color:#b91c1c; font-size:13px; margin-top:4px; }
+.notif { position:fixed; top:12px; left:50%; transform:translateX(-50%); z-index:100; max-width:92vw; padding:12px 18px; border-radius:12px; cursor:pointer;
+         background:var(--vert); color:#fff; font-weight:600; box-shadow:0 6px 20px rgba(0,0,0,.2); transition:opacity .4s; }
+.grille { display:grid; grid-template-columns:repeat(auto-fill, minmax(190px, 1fr)); gap:10px 18px; }
+.grille > div > span { display:block; font-size:12px; color:var(--doux); }
+.cartes { display:grid; grid-template-columns:repeat(auto-fill, minmax(320px, 1fr)); gap:12px; }
+.ligne { display:flex; gap:8px; align-items:center; flex-wrap:wrap; }
+.espace { justify-content:space-between; }
+details > summary { cursor:pointer; font-weight:600; padding:6px 0; }
+@media (max-width: 640px) {
+    main { padding:10px; } .carte { padding:12px; border-radius:10px; }
+    .masque-mobile { display:none; }
+    .cartes { grid-template-columns:1fr; }
+    /* Menu compact : les 3 premiers écrans + « Plus ». */
+    nav { flex-wrap:wrap; } nav a.extra { display:none; } nav.ouvert a.extra { display:inline-block; }
+}
+/* Impression : l'en-tête de chaque tableau se répète en haut de chaque page ; pas de ligne coupée ; un titre reste avec son tableau. */
+@media print { thead { display:table-header-group; } tfoot { display:table-footer-group; } tr { break-inside:avoid; page-break-inside:avoid; }
+               h1, h2, h3 { break-after:avoid; page-break-after:avoid; } .table-defile { overflow:visible !important; }
+               /* Numéro de page (Chrome récent ; ignoré ailleurs). */
+               @page { @bottom-right { content:"Page " counter(page) " / " counter(pages); font-size:9px; color:#78716c; } } }
+@media print { header, .non-imprime { display:none !important; } body { background:#fff; font-size:12px; } .carte { border:none; padding:0; } main { padding:0; max-width:none; } }
+
+/* Ligne de mesure (administrateur) ; pastille « nouvelles données » des écrans de suivi. */
+.mesure-page { margin:18px 0 0; text-align:end; font-size:11px; color:#a8a29e; }
+.pastille-suivi { position:fixed; bottom:16px; inset-inline-start:50%; transform:translateX(-50%); z-index:90; border:0; border-radius:999px; padding:10px 18px; background:var(--rouge); color:#fff; font:inherit; font-weight:600; cursor:pointer; box-shadow:0 6px 20px rgba(0,0,0,.25); }
+[dir=rtl] .pastille-suivi { transform:translateX(50%); }
+@media print { .pastille-suivi { display:none; } }
+
+/* Suivi des demandes : frise des 6 phases (faites, actuelle, à venir), étape qui bloque, niveau de retard. */
+.frise { display:grid; grid-template-columns:repeat(6, 1fr); gap:3px; list-style:none; margin:6px 0; padding:0; }
+.frise li { padding:4px 2px; text-align:center; font-size:11px; font-weight:600; border-radius:4px; background:#f5f5f4; color:#a8a29e; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.frise li.faite { background:#fecaca; color:var(--rouge); }
+.frise li.actuelle { background:var(--rouge); color:#fff; box-shadow:0 2px 0 -0px #450a0a; }
+.suivi-grand .frise li { padding:8px 4px; font-size:13px; }
+.suivi-texte { font-size:13.5px; line-height:1.5; }
+.suivi-grand .suivi-texte { font-size:15px; }
+.carte-suivi { display:block; color:inherit; border-inline-start:5px solid #15803d; padding:10px 14px; margin-bottom:8px; }
+.carte-suivi.niveau-orange { border-inline-start-color:#ea580c; background:#fffaf5; }
+.carte-suivi.niveau-rouge { border-inline-start-color:#b91c1c; background:#fef2f2; }
+.carte-suivi .entete-suivi { display:flex; flex-wrap:wrap; gap:4px 12px; align-items:baseline; }
+.pastilles-suivi { display:flex; flex-wrap:wrap; gap:6px; margin:0 0 10px; }
+.pastilles-suivi a { display:inline-flex; gap:6px; align-items:center; padding:6px 12px; border-radius:999px; border:1px solid var(--bord); background:#fff; color:var(--texte); text-decoration:none; font-weight:600; font-size:13px; }
+.pastilles-suivi a b { background:#f5f5f4; border-radius:999px; padding:0 7px; font-size:12px; }
+.pastilles-suivi a.actif { background:var(--rouge); border-color:var(--rouge); color:#fff; } .pastilles-suivi a.actif b { background:#fff; color:var(--rouge); }
+.pastilles-suivi a.retard b { background:#fee2e2; color:#b91c1c; }
+@media (max-width: 640px) { .frise li { font-size:9.5px; padding:3px 1px; } .frise li:not(.actuelle) span { font-size:0; } .frise li:not(.actuelle) { min-height:10px; } }
+@media print { .carte-suivi { break-inside:avoid; } }
+
+/* Fiche demande : en-tête collant, réduit en barre compacte quand on défile ; étape qui vient d'être enregistrée. */
+.visible-reduit { display:none; }
+.entete-fiche.reduit { padding-bottom:4px; border-bottom:1px solid var(--bord); box-shadow:0 4px 8px -6px rgba(0,0,0,.25); }
+.entete-fiche.reduit h1 { font-size:16px !important; }
+.entete-fiche.reduit .visible-reduit { display:block; margin:2px 0 0; }
+.entete-fiche.reduit .carte-suivi { margin:4px 0 0 !important; padding:4px 10px; }
+.entete-fiche.reduit .suivi-grand .frise li { padding:3px 2px; font-size:11px; }
+.entete-fiche.reduit .suivi-grand .suivi-texte { font-size:13px; }
+@media (max-width: 640px) { .entete-fiche.reduit h1 { font-size:14px !important; } .entete-fiche.reduit .badge { display:none; } }
+.etape-juste-faite td { background:#dcfce7 !important; transition:background 2s; }
+@media print { .visible-reduit { display:none !important; } }
